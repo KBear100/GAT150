@@ -26,7 +26,7 @@ namespace Bear
 		Game* GetGame() { return m_game; }
 
 	private:
-		Game* m_game;
+		Game* m_game = nullptr;
 		std::list<std::unique_ptr<Actor>> m_actors;
 	};
 

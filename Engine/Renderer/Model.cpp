@@ -10,7 +10,8 @@ namespace Bear
 		Load(filename);
 		m_radius = CalculateRadius();
 	}
-	void Model::Draw(Renderer& renderer, const Vector2& position, float angle, const float& scale)
+
+	void Model::Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale)
 	{
 		//draw model
 		for (int i = 0; i < m_points.size() - 1; i++)
@@ -21,6 +22,7 @@ namespace Bear
 			renderer.DrawLine(p1, p2, m_color);
 		}
 	}
+
 	void Model::Load(const std::string filename)
 	{
 		std::string buffer;
