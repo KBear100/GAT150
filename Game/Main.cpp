@@ -18,12 +18,15 @@ int main()
 
 	// create texture
 	std::shared_ptr<Bear::Texture> texture = std::make_shared<Bear::Texture>();
-	texture->Create(Bear::g_renderer, "Models/Fighter.png");
+	texture->Create(Bear::g_renderer, "Sprites/Ship.png");
+
+	// create audio
+	Bear::g_audioSystem.AddAudio("Laser", "Sounds/Laser.wav");
 
 	Bear::Scene scene;
 
 	// create actors
-	Bear::Transform transform{ Bear::Vector2{100, 100}, 90, {3, 3} };
+	Bear::Transform transform{ Bear::Vector2{400, 300}, 90, {1, 1} };
 
 	std::unique_ptr<Bear::Actor> actor = std::make_unique <Bear::Actor>(transform);
 
@@ -33,6 +36,13 @@ int main()
 	std::unique_ptr<Bear::SpriteComponent> scomponent = std::make_unique<Bear::SpriteComponent>();
 	scomponent->m_texture = texture;
 	actor->AddComponent(std::move(scomponent));
+
+	std::unique_ptr<Bear::AudioComponent> acomponent = std::make_unique<Bear::AudioComponent>();
+	acomponent->m_soundName = "Laser";
+	actor->AddComponent(std::move(acomponent));
+
+	std::unique_ptr<Bear::PhysicsComponent> phcomponent = std::make_unique<Bear::PhysicsComponent>();
+	actor->AddComponent(std::move(phcomponent));
 
 	scene.Add(std::move(actor));
 
@@ -57,7 +67,7 @@ int main()
 		Bear::g_renderer.BeginFrame();
 
 		scene.Draw(Bear::g_renderer);
-		Bear::g_renderer.Draw(texture, { 400, 300 }, angle, { 2, 2 }, { 0.5f, 1.0f });
+		//Bear::g_renderer.Draw(texture, { 400, 300 }, angle, { 2, 2 }, { 0.5f, 1.0f });
 
 		Bear::g_renderer.EndFrame();
 	}

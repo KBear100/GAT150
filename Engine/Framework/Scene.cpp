@@ -37,6 +37,7 @@ namespace Bear
 			}
 		}
 	}
+
 	void Scene::Draw(Renderer& renderer)
 	{
 		for (auto& actor : m_actors)
@@ -44,6 +45,7 @@ namespace Bear
 			actor->Draw(renderer);
 		}
 	}
+
 	void Scene::Add(std::unique_ptr<Actor> actor)
 	{
 		actor->m_scene = this;

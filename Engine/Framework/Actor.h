@@ -18,6 +18,7 @@ namespace Bear
 		virtual void Draw(Renderer& renderer);
 
 		void AddComponent(std::unique_ptr<Component> component);
+		template<typename T> T* GetComponent();
 
 		virtual void OnCollision(Actor* other) {}
 		float GetRadius() { return 0; } //m_model.GetRadius()* std::max(m_transform.scale.x, m_transform.scale.y);
@@ -40,4 +41,16 @@ namespace Bear
 
 		std::vector<std::unique_ptr<Component>> m_components;
 	};
+
+	template<typename T>
+	inline T* Actor::GetComponent()
+	{
+		for (auto& component : m_components)
+		{
+			T* result = dynamic_cast<T*>(component.get());
+			if (result) return result;
+		}
+
+		return nullptr;
+	}
 }
