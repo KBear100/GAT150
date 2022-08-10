@@ -67,7 +67,7 @@ namespace Bear
 
 	inline float Vector3::Length()
 	{
-		return std::sqrt(x * x + y * y);
+		return std::sqrt(x * x + y * y + z * z);
 	}
 
 	inline float Vector3::DistanceSqr(const Vector3& v)
