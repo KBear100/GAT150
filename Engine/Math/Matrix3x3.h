@@ -14,8 +14,8 @@ namespace Bear
 		Vector3 operator [] (size_t index) const { return rows[index]; }
 		Vector3& operator [] (size_t index) { return rows[index]; }
 
-		Vector2 operator * (const Vector2& v); // v3 = mx3 * v2
-		Matrix3x3 operator * (const Matrix3x3& mx); // mx3 = mx33 * mx33
+		Vector2 operator * (const Vector2& v) const; // v3 = mx3 * v2
+		Matrix3x3 operator * (const Matrix3x3& mx) const; // mx3 = mx33 * mx33
 
 		static Matrix3x3 CreateScale(const Vector2& scale);
 		static Matrix3x3 CreateScale(float scale);
@@ -35,7 +35,7 @@ namespace Bear
 		rows[2] = row3;
 	}
 
-	inline Vector2 Matrix3x3::operator*(const Vector2& v)
+	inline Vector2 Matrix3x3::operator*(const Vector2& v) const
 	{
 		Vector2 result;
 
@@ -45,7 +45,7 @@ namespace Bear
 		return result;
 	}
 
-	inline Matrix3x3 Matrix3x3::operator*(const Matrix3x3& mx)
+	inline Matrix3x3 Matrix3x3::operator*(const Matrix3x3& mx) const
 	{
 		Matrix3x3 result;
 
@@ -93,7 +93,7 @@ namespace Bear
 
 		mx[0] = Vector3{ std::cos(radians), -std::sin(radians), 0.0f };
 		mx[1] = Vector3{ std::sin(radians), std::cos(radians), 0.0f };
-		mx[2] = Vector3{ 0.0f, 0.0f, 0.0f };
+		mx[2] = Vector3{ 0.0f, 0.0f, 1.0f };
 
 		return mx;
 	}
