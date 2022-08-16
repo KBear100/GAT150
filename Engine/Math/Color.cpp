@@ -31,4 +31,10 @@ namespace Bear
 
 		return stream;
 	}
+
+	std::ostream& operator<<(std::ostream& stream, const Color& c)
+	{
+		stream << (int)c.a << " " << (int)c.g << " " << (int)c.b;
+		return stream;
+	}
 }

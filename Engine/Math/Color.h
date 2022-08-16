@@ -21,8 +21,12 @@ namespace Bear
 		static const Color green;
 		static const Color blue;
 
+		uint8_t operator [] (size_t index) const { return (&r)[index]; }
+		uint8_t& operator [] (size_t index) { return (&r)[index]; }
+
 		friend std::istream& operator >> (std::istream& stream, Color& color);
 	};
 
 	std::istream& operator >> (std::istream& stream, Color& color);
+	std::ostream& operator << (std::ostream& stream, const Color& c);
 }

@@ -30,6 +30,12 @@
     <Filter Include="Source\Components">
       <UniqueIdentifier>{d4ba1055-d676-4bdf-a59d-595c8ce9c57f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Resource">
+      <UniqueIdentifier>{2f0887c1-ff8b-4854-a658-7ab2d0d00b66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Serialization">
+      <UniqueIdentifier>{4732ded2-e56b-442d-a508-425080571e92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\MathUtils.h">
@@ -125,6 +131,21 @@
     <ClInclude Include="Components\ModelComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\Resource.h">
+      <Filter>Source\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\ResourceManager.h">
+      <Filter>Source\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Singleton.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Factory.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Serialization\Json.h">
+      <Filter>Source\Serialization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -199,16 +220,11 @@
     <ClCompile Include="Components\ModelComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\Build\Assets\Enemy.txt">
-      <Filter>Resources</Filter>
-    </Text>
-    <Text Include="..\Build\Assets\Player.txt">
-      <Filter>Resources</Filter>
-    </Text>
-    <Text Include="..\Build\Assets\Bullet.txt">
-      <Filter>Resources</Filter>
-    </Text>
+    <ClCompile Include="Resource\ResourceManager.cpp">
+      <Filter>Source\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Serialization\Json.cpp">
+      <Filter>Source\Serialization</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
