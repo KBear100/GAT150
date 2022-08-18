@@ -5,7 +5,7 @@ namespace Bear
 {
 	class Actor;
 	
-	class Component : public GameObject
+	class Component : public GameObject, public ISerializable
 	{
 	public:
 		Component() = default;

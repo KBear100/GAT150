@@ -14,7 +14,7 @@ namespace Bear
 		~Font();
 
 		bool Create(std::string filename, ...) override;
-		void Load(const std::string& filename, int fontSize);
+		bool Load(const std::string& filename, int fontSize);
 
 		friend class Text;
 

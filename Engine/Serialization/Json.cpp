@@ -1,7 +1,8 @@
 #include "Json.h"
 #include "rapidjson/istreamwrapper.h"
 #include "Core/Logger.h"
-#include "Core/File.h"
+#include "Math/Color.h"
+#include "Math/Vector2.h"
 #include <fstream>
 
 namespace Bear::json
@@ -11,7 +12,7 @@ namespace Bear::json
 		std::ifstream stream(filename);
 		if (!stream.is_open())
 		{
-			LOG("Error stream not open");
+			LOG("Error opening file %s", filename.c_str());
 			return false;
 		}
 
@@ -19,7 +20,7 @@ namespace Bear::json
 		document.ParseStream(istream);
 		if (document.IsObject() == false)
 		{
-			LOG("json file cannot be read $s", filename.c_str());
+			LOG("json file cannot be read %s", filename.c_str());
 			return false;
 		}
 		
@@ -30,7 +31,7 @@ namespace Bear::json
 	{
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsInt() == false)
 		{
-			LOG("Error reading json data $s", name.c_str());
+			LOG("Error reading json data %s", name.c_str());
 			return false;
 		}
 
@@ -41,9 +42,9 @@ namespace Bear::json
 
 	bool Get(const rapidjson::Value& value, const std::string& name, float& data)
 	{
-		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsFloat() == false)
+		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsNumber() == false)
 		{
-			LOG("Error reading json data $s", name.c_str());
+			LOG("Error reading json data %s", name.c_str());
 			return false;
 		}
 
@@ -56,7 +57,7 @@ namespace Bear::json
 	{
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsBool() == false)
 		{
-			LOG("Error reading json data $s", name.c_str());
+			LOG("Error reading json data %s", name.c_str());
 			return false;
 		}
 
@@ -90,7 +91,7 @@ namespace Bear::json
 
 		for (rapidjson::SizeType i = 0; i < array.Size(); i++)
 		{
-			if (!array[i].IsFloat())
+			if (!array[i].IsNumber())
 			{
 				LOG("Error reading json data (not a float) %s", name.c_str());
 				return false;

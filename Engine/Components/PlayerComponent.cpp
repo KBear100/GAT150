@@ -11,7 +11,7 @@ namespace Bear
 		float thrust = 0;
 		if (Bear::g_inputSystem.GetKeyState(key_up) == InputSystem::KeyState::Held)
 		{
-			thrust = 100;
+			thrust = speed;
 		}
 
 		auto component = m_owner->GetComponent<PhysicsComponent>();
@@ -52,5 +52,17 @@ namespace Bear
 				component->Play();
 			}
 		}
+	}
+
+	bool PlayerComponent::Write(const rapidjson::Value& value) const
+	{
+		return true;
+	}
+
+	bool PlayerComponent::Read(const rapidjson::Value& value)
+	{
+		READ_DATA(value, speed);
+
+		return true;
 	}
 }

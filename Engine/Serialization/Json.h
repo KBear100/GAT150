@@ -1,8 +1,14 @@
 #pragma once
 #include "rapidjson/document.h"
-#include "Math/Vector2.h"
-#include "Math/Color.h"
 #include <string>
+
+#define READ_DATA(value, data) Bear::json::Get(value, #data, data);
+
+namespace Bear
+{
+	struct Color;
+	struct Vector2;
+}
 
 namespace Bear::json
 {

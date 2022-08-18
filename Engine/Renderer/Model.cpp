@@ -17,7 +17,7 @@ namespace Bear
 	{
 		if (!Load(filename))
 		{
-			LOG("Error could not create file $s", filename.c_str());
+			LOG("Error could not create file %s", filename.c_str());
 			return false;
 		}
 
@@ -57,7 +57,7 @@ namespace Bear
 
 		if (!Bear::ReadFile(filename, buffer))
 		{
-			LOG("Error could not read file $s", filename.c_str());
+			LOG("Error could not read file %s", filename.c_str());
 			return false;
 		}
 

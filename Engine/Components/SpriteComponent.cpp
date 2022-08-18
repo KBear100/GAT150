@@ -11,6 +11,16 @@ namespace Bear
 
 	void SpriteComponent::Draw(Renderer& renderer)
 	{
-		renderer.Draw(m_texture, m_owner->m_transform);
+		renderer.Draw(texture, m_owner->m_transform);
+	}
+	bool SpriteComponent::Write(const rapidjson::Value& value) const
+	{
+		return false;
+	}
+	bool SpriteComponent::Read(const rapidjson::Value& value)
+	{
+		READ_DATA(value, texture_name);
+
+		return true;
 	}
 }

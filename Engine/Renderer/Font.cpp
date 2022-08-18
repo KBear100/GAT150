@@ -20,17 +20,23 @@ namespace Bear
 
 	bool Font::Create(std::string filename, ...)
 	{
+		va_list args;
+		va_start(args, filename);
+		int fontSize = va_arg(args, int);
+		va_end(args);
+
+		return Load(filename, fontSize);
+	}
+
+	bool Font::Load(const std::string& filename, int fontSize)
+	{
 		if (!FileExists(filename))
 		{
 			LOG("Error could not create file $s", filename.c_str());
 			return false;
 		}
 
-		return true;
-	}
-
-	void Font::Load(const std::string& filename, int fontSize)
-	{
 		m_ttfFont = TTF_OpenFont(filename.c_str(), fontSize);
+		return true;
 	}
 }
