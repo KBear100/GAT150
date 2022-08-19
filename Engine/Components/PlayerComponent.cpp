@@ -22,8 +22,8 @@ namespace Bear
 			component->ApplyForce(force);
 
 			// gravitational force
-			force = (Vector2{ 400, 300 } - m_owner->m_transform.position).Normalized() * 60.0f;
-			component->ApplyForce(force);
+			//force = (Vector2{ 400, 300 } - m_owner->m_transform.position).Normalized() * 60.0f;
+			//component->ApplyForce(force);
 		}
 
 		if (Bear::g_inputSystem.GetKeyState(key_down) == InputSystem::KeyState::Held)

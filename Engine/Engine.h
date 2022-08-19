@@ -19,6 +19,7 @@
 #include "Components/AudioComponent.h"
 #include "Components/PhysicsComponent.h"
 #include "Components/ModelComponent.h"
+#include "Components/SpriteAnimComponent.h"
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"

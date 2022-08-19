@@ -10,8 +10,8 @@
                300
             ],
             "scale":[
-               2,
-               2
+               1.5,
+               1.5
             ],
             "rotation":0
          },
@@ -26,11 +26,16 @@
             },
             {
                "type":"PhysicsComponent",
-               "damping":4
+               "damping":0.99
             },
             {
-               "type":"SpriteComponent",
-               "texture_name":"Ship.png"
+                "type":"SpriteAnimComponent",
+                "texture_name":"Sprites/hell-hound-walk.png",
+                "fps":12,
+                "num_columns":12,
+                "num_rows":1,
+                "start_frame":1,
+                "end_frame":12
             }
          ]
       }
