@@ -29,6 +29,7 @@
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Resource/ResourceManager.h"
+#include "Physics/PhysicsSystem.h"
 
 #include <memory>
 #include <iostream>
@@ -41,6 +42,7 @@ namespace Bear
 	extern Time g_time;
 	extern AudioSystem g_audioSystem;
 	extern ResourceManager g_resources;
+	extern PhysicsSystem g_physicsSystem;
 
 	class Engine : public Singleton<Engine>
 	{

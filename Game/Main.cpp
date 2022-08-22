@@ -12,6 +12,7 @@ int main()
 	Bear::g_inputSystem.Initialize();
 	Bear::g_audioSystem.Initialize();
 	Bear::g_resources.Initialize();
+	Bear::g_physicsSystem.Initialize();
 
 	Bear::Engine::Instance().Register();
 
@@ -34,6 +35,7 @@ int main()
 		Bear::g_time.Tick();
 		Bear::g_inputSystem.Update();
 		Bear::g_audioSystem.Update();
+		Bear::g_physicsSystem.Update();
 
 		if (Bear::g_inputSystem.GetKeyDown(Bear::key_escape)) quit = true;
 
