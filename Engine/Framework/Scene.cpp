@@ -39,6 +39,14 @@ namespace Bear
 		}
 	}
 
+	void Scene::Initialize()
+	{
+		for (auto& actor : m_actors)
+		{
+			actor->Initialize();
+		}
+	}
+
 	void Scene::Draw(Renderer& renderer)
 	{
 		for (auto& actor : m_actors)

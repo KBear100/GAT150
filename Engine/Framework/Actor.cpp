@@ -20,6 +20,19 @@ namespace Bear
 		else m_transform.Update();
 	}
 
+	void Actor::Initialize()
+	{
+		for (auto& component : m_components)
+		{
+			component->Initialize();
+		}
+
+		for (auto& child : m_children)
+		{
+			child->Initialize();
+		}
+	}
+
 	void Bear::Actor::Draw(Renderer& renderer)
 	{
 		for (auto& component : m_components)
@@ -61,7 +74,7 @@ namespace Bear
 		READ_DATA(value, tag);
 		READ_DATA(value, name);
 
-		m_transform.Read(value["transform"]);
+		if(value.HasMember("transform")) m_transform.Read(value["transform"]);
 
 		if (value.HasMember("components") && value["components"].IsArray())
 		{

@@ -27,6 +27,7 @@ int main()
 	bool success = Bear::json::Load("level.txt", document);
 
 	scene.Read(document);
+	scene.Initialize();
 
 	bool quit = false;
 	while (!quit)
@@ -50,8 +51,11 @@ int main()
 		Bear::g_renderer.EndFrame();
 	}
 
-	Bear::g_renderer.ShutDown();
-	Bear::g_audioSystem.ShutDown();
-	Bear::g_inputSystem.ShutDown();
+	scene.RemoveAll();
+
+	Bear::g_physicsSystem.Shutdown();
 	Bear::g_resources.Shutdown();
+	Bear::g_inputSystem.ShutDown();
+	Bear::g_audioSystem.ShutDown();
+	Bear::g_renderer.ShutDown();
 }

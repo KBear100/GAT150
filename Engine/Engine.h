@@ -18,8 +18,11 @@
 #include "Components/SpriteComponent.h"
 #include "Components/AudioComponent.h"
 #include "Components/PhysicsComponent.h"
+#include "Components/RBPhysicsComponent.h"
 #include "Components/ModelComponent.h"
 #include "Components/SpriteAnimComponent.h"
+#include "Components/CollisionComponent.h"
+#include "Components/TextComponent.h"
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"

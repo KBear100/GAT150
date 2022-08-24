@@ -11,6 +11,7 @@ namespace Bear
 		Component() = default;
 
 		virtual void Update() = 0;
+		virtual void Initialize() override {}
 
 		friend class Actor;
 

@@ -39,4 +39,17 @@ namespace Bear
 		m_ttfFont = TTF_OpenFont(filename.c_str(), fontSize);
 		return true;
 	}
+
+	SDL_Surface* Font::CreateSurface(const std::string& text, const Color& color)
+	{
+		SDL_Color c = *((SDL_Color*)(&color));
+		SDL_Surface* surface = TTF_RenderText_Solid(m_ttfFont, text.c_str(), c);
+
+		if (surface == nullptr)
+		{
+			LOG(SDL_GetError());
+		}
+
+		return surface;
+	}
 }

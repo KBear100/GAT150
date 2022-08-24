@@ -15,6 +15,7 @@ namespace Bear
 		Actor(const Transform& transform) : m_transform{ transform } {}
 
 		virtual void Update() override;
+		virtual void Initialize() override;
 		virtual void Draw(Renderer& renderer);
 
 		virtual bool Write(const rapidjson::Value& value) const override;

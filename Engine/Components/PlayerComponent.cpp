@@ -14,42 +14,33 @@ namespace Bear
 			thrust = speed;
 		}
 
-		auto component = m_owner->GetComponent<PhysicsComponent>();
-		if (component)
-		{
-			// thrust force
-			Vector2 force = Vector2::Rotate({ 1, 0 }, Math::DegToRad(m_owner->m_transform.rotation)) * thrust;
-			component->ApplyForce(force);
-
-			// gravitational force
-			//force = (Vector2{ 400, 300 } - m_owner->m_transform.position).Normalized() * 60.0f;
-			//component->ApplyForce(force);
-		}
-
 		if (Bear::g_inputSystem.GetKeyState(key_down) == InputSystem::KeyState::Held)
 		{
-			//m_owner->m_transform.position.y += 1;
-			direction += Vector2::down;
+			direction = Vector2::down;
 		}
 
 		if (Bear::g_inputSystem.GetKeyState(key_right) == InputSystem::KeyState::Held)
 		{
-			m_owner->m_transform.rotation += 180 * g_time.deltaTime;
+			direction = Vector2::right;
 		}
 
 		if (Bear::g_inputSystem.GetKeyState(key_left) == InputSystem::KeyState::Held)
 		{
-			m_owner->m_transform.rotation -= 180 * g_time.deltaTime;
+			direction = Vector2::left;
 		}
 
-		m_owner->m_transform.position += direction * 300 * g_time.deltaTime;
+		auto component = m_owner->GetComponent<PhysicsComponent>();
+		if (component)
+		{
+			component->ApplyForce(direction * speed);
+		}
 
 		if (g_inputSystem.GetKeyState(key_space) == InputSystem::KeyState::Pressed)
 		{
-			auto component = m_owner->GetComponent<AudioComponent>();
+			auto component = m_owner->GetComponent<PhysicsComponent>();
 			if (component)
 			{
-				component->Play();
+				component->ApplyForce(Vector2::up * 500);
 			}
 		}
 	}

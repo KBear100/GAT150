@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/Component.h"
+#include "Audio/AudioChannel.h"
 
 namespace Bear
 {
@@ -7,7 +8,9 @@ namespace Bear
 	{
 	public:
 		AudioComponent() = default;
+		~AudioComponent();
 
+		void Initialize();
 		void Update() override;
 
 		void Play();
@@ -16,13 +19,12 @@ namespace Bear
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 	public:
-		std::string m_soundName;
-		bool m_playOnAwake = false;
-		float m_volume = 1.0f;
-		float m_pitch = 1.0f;
-		bool m_loop = false;
+		AudioChannel m_channel;
 
-	private:
-
+		std::string sound_name;
+		bool play_on_start = false;
+		float volume = 1.0f;
+		float pitch = 1.0f;
+		bool loop = false;
 	};
 }
