@@ -176,6 +176,9 @@
     <ClInclude Include="Components\TextComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\ContactListener.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -276,6 +279,9 @@
     </ClCompile>
     <ClCompile Include="Components\TextComponent.cpp">
       <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\ContactListener.cpp">
+      <Filter>Source\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

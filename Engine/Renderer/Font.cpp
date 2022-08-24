@@ -12,9 +12,10 @@ namespace Bear
 
 	Font::~Font()
 	{
-		if (m_ttfFont != NULL)
+		if (m_ttfFont)
 		{
 			TTF_CloseFont(m_ttfFont);
+			m_ttfFont = nullptr;
 		}
 	}
 

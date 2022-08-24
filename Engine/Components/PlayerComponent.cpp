@@ -4,6 +4,16 @@
 
 namespace Bear
 {
+	void PlayerComponent::Initialize()
+	{
+		auto component = m_owner->GetComponent<CollisionComponent>();
+		if (component)
+		{
+			component->SetCollisionEnter(std::bind(&PlayerComponent::OnCollisionEnter, this, std::placeholders::_1));
+			component->SetCollisionExit(std::bind(&PlayerComponent::OnCollisionExit, this, std::placeholders::_1));
+		}
+	}
+
 	void PlayerComponent::Update()
 	{
 		Vector2 direction = Vector2::zero;
@@ -55,5 +65,15 @@ namespace Bear
 		READ_DATA(value, speed);
 
 		return true;
+	}
+
+	void PlayerComponent::OnCollisionEnter(Actor* other)
+	{
+		std::cout << "player enter\n";
+	}
+
+	void PlayerComponent::OnCollisionExit(Actor* other)
+	{
+		std::cout << "player exit\n";
 	}
 }

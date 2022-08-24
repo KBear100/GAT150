@@ -17,7 +17,7 @@ int main()
 	Bear::Engine::Instance().Register();
 
 	// create window
-	Bear::g_renderer.CreateWindow("Test", 800, 600);
+	Bear::g_renderer.CreateWindow("Highway to Hell", 800, 600);
 	Bear::g_renderer.SetClearColor(Bear::Color{ 0, 0, 0, 255 });
 
 	// create scene
