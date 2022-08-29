@@ -63,11 +63,12 @@
       },
       {
          "type":"Actor",
-         "name":"Text",
+         "name":"Title",
+         "active":true,
          "transform":{
             "position":[
-               40,
-               30
+               400,
+               300
             ],
             "scale":[
                1,

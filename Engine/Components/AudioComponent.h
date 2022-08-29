@@ -10,6 +10,8 @@ namespace Bear
 		AudioComponent() = default;
 		~AudioComponent();
 
+		CLASS_DECLARATION(AudioComponent)
+
 		void Initialize();
 		void Update() override;
 

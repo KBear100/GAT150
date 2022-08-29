@@ -12,6 +12,8 @@ namespace Bear
 	class TextComponent : public RenderComponent 
 	{
 	public:
+		CLASS_DECLARATION(TextComponent)
+
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer) override;
 

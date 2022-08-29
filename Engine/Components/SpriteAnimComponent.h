@@ -9,11 +9,15 @@ namespace Bear
 	class SpriteAnimComponent : public RenderComponent
 	{
 	public:
+		CLASS_DECLARATION(SpriteAnimComponent)
+
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer) override;
 
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
+
+		Rect& GetSource() override;
 
 	public:
 		float fps = 0;
@@ -26,7 +30,6 @@ namespace Bear
 		int frame = 0;
 		float frameTimer = 0;
 
-		Rect source;
 		std::shared_ptr<Texture> m_texture;
 	};
 }

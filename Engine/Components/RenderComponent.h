@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework\Component.h"
+#include "Math/Rect.h"
 
 namespace Bear
 {
@@ -10,7 +11,9 @@ namespace Bear
 	public:
 		virtual void Draw(Renderer& renderer) = 0;
 
-	protected:
+		virtual Rect& GetSource() { return source; }
 
+	protected:
+		Rect source;
 	};
 }

@@ -14,7 +14,10 @@ namespace Bear
 	public:
 		Scene() = default;
 		Scene(Game* game) : m_game{ game } {}
+		Scene(const Scene& other) {}
 		~Scene() = default;
+
+		CLASS_DECLARATION(Scene)
 
 		void Update() override;
 		void Initialize() override;
@@ -27,6 +30,12 @@ namespace Bear
 		void RemoveAll();
 
 		template<typename T> T* GetActor();
+
+		template<typename T = Actor>
+		T* GetActorFromName(const std::string& name);
+
+		template<typename T = Actor>
+		std::vector<T*>GetActorsFromTag(const std::string& tag);
 
 		Game* GetGame() { return m_game; }
 
@@ -45,5 +54,36 @@ namespace Bear
 		}
 
 		return nullptr;
+	}
+
+	template<typename T>
+	inline T* Scene::GetActorFromName(const std::string& name)
+	{
+		for (auto& actor : m_actors)
+		{
+			if (name == actor->GetName())
+			{
+				return dynamic_cast<T*>(actor.get());
+			}
+		}
+
+		return nullptr;
+	}
+
+	template<typename T>
+	inline std::vector<T*> Scene::GetActorsFromTag(const std::string& tag)
+	{
+		std::vector<T*> result;
+
+		for (auto& actor : m_actors)
+		{
+			if (tag = actor->GetTag())
+			{
+				T* tagActor = dynamic_cast<T*>(actor.get());
+				if (tagActor) result.push_back(tagActor);
+			}
+		}
+
+		return result;
 	}
 }

@@ -8,6 +8,7 @@ namespace Bear
 	AudioSystem g_audioSystem;
 	ResourceManager g_resources;
 	PhysicsSystem g_physicsSystem;
+	EventManager g_eventManager;
 
 	void Engine::Register()
 	{
@@ -21,5 +22,6 @@ namespace Bear
 		REGISTER_CLASS(SpriteAnimComponent);
 		REGISTER_CLASS(CollisionComponent);
 		REGISTER_CLASS(TextComponent);
+		REGISTER_CLASS(TilemapComponent);
 	}
 }
