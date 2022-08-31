@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FinalGame.cpp" />
+    <ClCompile Include="GameComponents\EnemyComponent.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FinalGame.h" />
+    <ClInclude Include="GameComponents\EnemyComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Build\Assets\Scenes\level.txt" />

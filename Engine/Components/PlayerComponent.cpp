@@ -6,12 +6,7 @@ namespace Bear
 {
 	void PlayerComponent::Initialize()
 	{
-		auto component = m_owner->GetComponent<CollisionComponent>();
-		if (component)
-		{
-			component->SetCollisionEnter(std::bind(&PlayerComponent::OnCollisionEnter, this, std::placeholders::_1));
-			component->SetCollisionExit(std::bind(&PlayerComponent::OnCollisionExit, this, std::placeholders::_1));
-		}
+		CharacterComponent::Initialize();
 	}
 
 	void PlayerComponent::Update()
@@ -39,19 +34,51 @@ namespace Bear
 			direction = Vector2::left;
 		}
 
+		Vector2 velocity;
 		auto component = m_owner->GetComponent<PhysicsComponent>();
 		if (component)
 		{
-			component->ApplyForce(direction * speed);
+			// if in the air (m_groundCount == 0) then reduce force
+			float multiplier = (m_groundCount > 0) ? 1 : 0.2f;
+
+			component->ApplyForce(direction * speed * multiplier);
+			velocity = component->velocity;
 		}
 
-		if (g_inputSystem.GetKeyState(key_space) == InputSystem::KeyState::Pressed)
+		if (m_groundCount > 0 && g_inputSystem.GetKeyState(key_space) == InputSystem::KeyState::Pressed)
 		{
 			auto component = m_owner->GetComponent<PhysicsComponent>();
 			if (component)
 			{
 				component->ApplyForce(Vector2::up * 500);
+				velocity = component->velocity;
 			}
+		}
+
+		auto animComponent = m_owner->GetComponent<SpriteAnimComponent>();
+		if (animComponent)
+		{
+			if (velocity.x != 0) animComponent->SetFlipHorizontal(velocity.x < 0);
+			if (std::fabs(velocity.x) > 0)
+			{
+				animComponent->SetSequence("run");
+			}
+			else
+			{
+				animComponent->SetSequence("idle");
+			}
+
+			if (m_groundCount > 0 && g_inputSystem.GetKeyState(key_space) == InputSystem::KeyState::Pressed)
+			{
+				animComponent->SetSequence("jump");
+			}
+		}
+
+		// set camera
+		auto camera = m_owner->GetScene()->GetActorFromName("Camera");
+		if (camera)
+		{
+			camera->m_transform.position = Math::Lerp(camera->m_transform.position, m_owner->m_transform.position, 2 * g_time.deltaTime);
 		}
 	}
 
@@ -62,13 +89,36 @@ namespace Bear
 
 	bool PlayerComponent::Read(const rapidjson::Value& value)
 	{
-		READ_DATA(value, speed);
+		CharacterComponent::Read(value);
+		READ_DATA(value, jump);
 
 		return true;
 	}
 
+	void PlayerComponent::OnNotify(const Event& event)
+	{
+		if (event.name == "EVENT_DAMAGE")
+		{
+			health -= std::get<float>(event.data);
+			if (health <= 0)
+			{
+				m_owner->SetDestroy();
+
+				Event event;
+				event.name = "EVENT_PLAYER_DEAD";
+
+				g_eventManager.Notify(event);
+			}
+		}
+	}
+
 	void PlayerComponent::OnCollisionEnter(Actor* other)
 	{
+		if (other->GetTag() == "Ground")
+		{
+			m_groundCount++;
+		}
+
 		if (other->GetName() == "Coin")
 		{
 			Event event;
@@ -79,11 +129,22 @@ namespace Bear
 			other->SetDestroy();
 		}
 
-		std::cout << "player enter\n";
+		if (other->GetTag() == "Enemy")
+		{
+			Event event;
+			event.name = "EVENT_DAMAGE";
+			event.data = damage;
+			event.receiver = other;
+
+			g_eventManager.Notify(event);
+		}
 	}
 
 	void PlayerComponent::OnCollisionExit(Actor* other)
 	{
-		std::cout << "player exit\n";
+		if (other->GetTag() == "Ground")
+		{
+			m_groundCount--;
+		}
 	}
 }

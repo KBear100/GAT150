@@ -38,7 +38,7 @@ int main()
 
 		if (Bear::g_inputSystem.GetKeyDown(Bear::key_escape)) quit = true;
 
-		// update scene
+		// update game
 		game->Update();
 
 		// render

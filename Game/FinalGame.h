@@ -2,7 +2,7 @@
 #include "Framework/Game.h"
 #include "Framework/Event.h"
 
-class FinalGame : public Bear::Game
+class FinalGame : public Bear::Game, public Bear::INotify
 {
 public:
 	enum class gameState
@@ -19,6 +19,7 @@ public:
 	virtual void Shutdown() override;
 	virtual void Update() override;
 	virtual void Draw(Bear::Renderer& renderer) override;
+	virtual void OnNotify(const Bear::Event& event) override;
 
 	void OnAddPoints(const Bear::Event& event);
 	void OnPlayerDead(const Bear::Event& event);

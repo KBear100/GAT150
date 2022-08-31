@@ -1,8 +1,12 @@
 #include "FinalGame.h"
+#include "GameComponents/EnemyComponent.h"
 #include "Engine.h"
+
 
 void FinalGame::Initialize()
 {
+	REGISTER_CLASS(EnemyComponent);
+
 	m_scene = std::make_unique<Bear::Scene>();
 
 	rapidjson::Document document;
@@ -21,7 +25,8 @@ void FinalGame::Initialize()
 	}
 	m_scene->Initialize();
 
-	Bear::g_eventManager.Subscribe("EVENT ADD POINTS", std::bind(&FinalGame::OnAddPoints, this, std::placeholders::_1));
+	Bear::g_eventManager.Subscribe("EVENT ADD POINTS", std::bind(&FinalGame::OnNotify, this, std::placeholders::_1));
+	Bear::g_eventManager.Subscribe("EVENT_PLAYER_DEAD", std::bind(&FinalGame::OnNotify, this, std::placeholders::_1));
 }
 
 void FinalGame::Shutdown()
@@ -38,7 +43,7 @@ void FinalGame::Update()
 		{
 			m_scene->GetActorFromName("Title")->SetActive(false);
 
-			gameState::startLevel;
+			m_gameState = gameState::startLevel;
 		}
 		break;
 
@@ -46,6 +51,21 @@ void FinalGame::Update()
 		for (int i = 0; i < 10; i++)
 		{
 			auto actor = Bear::Factory::Instance().Create<Bear::Actor>("Coin");
+			actor->m_transform.position = { Bear::randomf(0, 600), 100.0f };
+			actor->Initialize();
+
+			m_scene->Add(std::move(actor));
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			auto actor = Bear::Factory::Instance().Create<Bear::Actor>("Ghost");
+			actor->m_transform.position = { Bear::randomf(0, 600), 100.0f };
+			actor->Initialize();
+
+			m_scene->Add(std::move(actor));
+		}
+		{
+			auto actor = Bear::Factory::Instance().Create<Bear::Actor>("Player");
 			actor->m_transform.position = { Bear::randomf(0, 600), 100.0f };
 			actor->Initialize();
 
@@ -93,4 +113,19 @@ void FinalGame::OnPlayerDead(const Bear::Event& event)
 	m_gameState = gameState::playerDead;
 	m_lives--;
 	m_stateTimer = 3.0f;
+}
+
+void FinalGame::OnNotify(const Bear::Event& event)
+{
+	if (event.name == "EVENT ADD POINTS")
+	{
+		AddPoints(std::get<int>(event.data));
+	}
+
+	if (event.name == "EVENT_PLAYER_DEAD")
+	{
+		m_gameState = gameState::playerDead;
+		m_lives--;
+		m_stateTimer = 3.0f;
+	}
 }

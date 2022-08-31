@@ -29,9 +29,6 @@ namespace Bear
 		void AddComponent(std::unique_ptr<Component> component);
 		template<typename T> T* GetComponent();
 
-		virtual void OnCollision(Actor* other) {}
-		float GetRadius() { return 0; } //m_model.GetRadius()* std::max(m_transform.scale.x, m_transform.scale.y);
-
 		const std::string& GetTag() { return tag; }
 		void SetTag(const std::string& tag) { this->tag = tag; }
 
@@ -54,6 +51,7 @@ namespace Bear
 	protected:
 		std::string name;
 		std::string tag;
+		float lifespan;
 
 		bool active = true;
 		bool m_destroy = false;

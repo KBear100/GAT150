@@ -12,7 +12,7 @@ namespace Bear
 
 	void SpriteComponent::Draw(Renderer& renderer)
 	{
-		renderer.Draw(m_texture, GetSource(), m_owner->m_transform);
+		renderer.Draw(m_texture, GetSource(), m_owner->m_transform, registration, flipHorizontal);
 	}
 
 	bool SpriteComponent::Write(const rapidjson::Value& value) const
@@ -32,7 +32,7 @@ namespace Bear
 			source.x = 0;
 			source.y = 0;
 			source.w = (int)m_texture->GetSize().x;
-			source.y = (int)m_texture->GetSize().y;
+			source.h = (int)m_texture->GetSize().y;
 		}
 
 		return true;
