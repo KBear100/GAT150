@@ -50,7 +50,7 @@ namespace Bear
 			auto component = m_owner->GetComponent<PhysicsComponent>();
 			if (component)
 			{
-				component->ApplyForce(Vector2::up * 500);
+				component->ApplyForce(Vector2::up * jump);
 				velocity = component->velocity;
 			}
 		}
@@ -68,7 +68,7 @@ namespace Bear
 				animComponent->SetSequence("idle");
 			}
 
-			if (m_groundCount > 0 && g_inputSystem.GetKeyState(key_space) == InputSystem::KeyState::Pressed)
+			if (m_groundCount <= 0)
 			{
 				animComponent->SetSequence("jump");
 			}
@@ -100,6 +100,9 @@ namespace Bear
 		if (event.name == "EVENT_DAMAGE")
 		{
 			health -= std::get<float>(event.data);
+			auto textHealth = m_owner->GetScene()->GetActorFromName("Health")->GetComponent<TextComponent>();
+			textHealth->SetText(std::to_string(health));
+			std::cout << health << std::endl;
 			if (health <= 0)
 			{
 				m_owner->SetDestroy();
@@ -126,10 +129,13 @@ namespace Bear
 			event.data = 100;
 
 			g_eventManager.Notify(event);
+
+			g_audioSystem.PlayAudio("CoinGrab"); 
+
 			other->SetDestroy();
 		}
 
-		if (other->GetTag() == "Enemy")
+		/*if (other->GetTag() == "Enemy")
 		{
 			Event event;
 			event.name = "EVENT_DAMAGE";
@@ -137,7 +143,7 @@ namespace Bear
 			event.receiver = other;
 
 			g_eventManager.Notify(event);
-		}
+		}*/
 	}
 
 	void PlayerComponent::OnCollisionExit(Actor* other)

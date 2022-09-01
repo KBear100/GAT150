@@ -6,7 +6,7 @@ class EnemyComponent : public Bear::CharacterComponent
 public:
 	CLASS_DECLARATION(EnemyComponent)
 
-		virtual void Initialize() override;
+	virtual void Initialize() override;
 	virtual void Update() override;
 
 	virtual void OnCollisionEnter(Bear::Actor* other) override;

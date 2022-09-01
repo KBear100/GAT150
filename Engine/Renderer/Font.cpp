@@ -33,7 +33,7 @@ namespace Bear
 	{
 		if (!FileExists(filename))
 		{
-			LOG("Error could not create file $s", filename.c_str());
+			LOG("Error could not create file %s", filename.c_str());
 			return false;
 		}
 

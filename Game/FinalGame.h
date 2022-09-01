@@ -26,6 +26,6 @@ public:
 
 private:
 	gameState m_gameState = gameState::titleScreen;
-	float m_stateTimer = 3.0f;
+	float m_stateTimer = 15.0f;
 	int m_lives = 3;
 };

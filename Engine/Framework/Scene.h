@@ -77,7 +77,7 @@ namespace Bear
 
 		for (auto& actor : m_actors)
 		{
-			if (tag = actor->GetTag())
+			if (tag == actor->GetTag())
 			{
 				T* tagActor = dynamic_cast<T*>(actor.get());
 				if (tagActor) result.push_back(tagActor);

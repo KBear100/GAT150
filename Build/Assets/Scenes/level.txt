@@ -5,19 +5,19 @@
          "name":"Background",
          "transform":{
             "position":[
-               400,
+               1000,
                300
             ],
             "scale":[
-               2,
-               2
+               4.5,
+               4.5
             ],
             "rotation":0
          },
          "components":[
             {
                "type":"SpriteComponent",
-               "texture_name":"Sprites/background.png"
+               "texture_name":"Sprites/background2.jpg"
             }
          ]
       },
@@ -27,7 +27,7 @@
          "components":[
             {
                "type":"AudioComponent",
-               "sound_name":"Sounds/Music.mp3",
+               "sound_name":"Sounds/HellMusic.mp3",
                "loop":true,
                "play_on_start":true
             }
@@ -39,8 +39,8 @@
          "active":true,
          "transform":{
             "position":[
-               400,
-               300
+               300,
+               200
             ],
             "scale":[
                2,
@@ -51,17 +51,85 @@
          "components":[
             {
                "type":"TextComponent",
-               "text":"Hello World!",
-               "font_name":"Fonts/Arcade.ttf",
+               "text":"Highway to Hell",
+               "font_name":"Fonts/TheyPerished.ttf",
                "font_size":20,
                "registration":[
                   0.0,
                   0.5
                ],
                "color":[
-                  0,
-                  0,
-                  0,
+                  255,
+                  255,
+                  255,
+                  255
+               ]
+            }
+         ]
+      },
+       {
+         "type":"Actor",
+         "name":"Score",
+         "active":true,
+         "transform":{
+            "position":[
+               50,
+               50
+            ],
+            "scale":[
+               2,
+               2
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"TextComponent",
+               "text":"000000",
+               "font_name":"Fonts/bloodlust.ttf",
+               "font_size":20,
+               "registration":[
+                  0.0,
+                  0.0
+               ],
+               "color":[
+                  255,
+                  255,
+                  255,
+                  255
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"Health",
+         "active":true,
+         "transform":{
+            "position":[
+               50,
+               80
+            ],
+            "scale":[
+               2,
+               2
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"TextComponent",
+               "text":"10",
+               "font_name":"Fonts/bloodlust.ttf",
+               "font_size":20,
+               "registration":[
+                  0.0,
+                  0.0
+               ],
+               "color":[
+                  255,
+                  255,
+                  255,
                   255
                ]
             }

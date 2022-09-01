@@ -27,6 +27,9 @@ void FinalGame::Initialize()
 
 	Bear::g_eventManager.Subscribe("EVENT ADD POINTS", std::bind(&FinalGame::OnNotify, this, std::placeholders::_1));
 	Bear::g_eventManager.Subscribe("EVENT_PLAYER_DEAD", std::bind(&FinalGame::OnNotify, this, std::placeholders::_1));
+
+	Bear::g_audioSystem.AddAudio("Damage", "Sounds/Dog_Hit.wav");
+	Bear::g_audioSystem.AddAudio("CoinGrab", "Sounds/Coin.wav");
 }
 
 void FinalGame::Shutdown()
@@ -41,17 +44,19 @@ void FinalGame::Update()
 	case FinalGame::gameState::titleScreen:
 		if (Bear::g_inputSystem.GetKeyState(Bear::key_space) == Bear::InputSystem::KeyState::Pressed)
 		{
-			m_scene->GetActorFromName("Title")->SetActive(false);
-
 			m_gameState = gameState::startLevel;
 		}
 		break;
 
 	case FinalGame::gameState::startLevel:
-		for (int i = 0; i < 10; i++)
+		
+		m_scene->GetActorFromName("Title")->SetActive(false);
+		m_stateTimer = 15.0f;
+
+		for (int i = 0; i < 50; i++)
 		{
 			auto actor = Bear::Factory::Instance().Create<Bear::Actor>("Coin");
-			actor->m_transform.position = { Bear::randomf(0, 600), 100.0f };
+			actor->m_transform.position = { Bear::randomf(100, 2000), 100.0f };
 			actor->Initialize();
 
 			m_scene->Add(std::move(actor));
@@ -66,7 +71,7 @@ void FinalGame::Update()
 		}
 		{
 			auto actor = Bear::Factory::Instance().Create<Bear::Actor>("Player");
-			actor->m_transform.position = { Bear::randomf(0, 600), 100.0f };
+			actor->m_transform.position = { 200.0f, 100.0f };
 			actor->Initialize();
 
 			m_scene->Add(std::move(actor));
@@ -75,17 +80,42 @@ void FinalGame::Update()
 		break;
 
 	case FinalGame::gameState::game:
+		m_stateTimer -= Bear::g_time.deltaTime;
+		if (m_stateTimer <= 0)
+		{
+			for (int i = 0; i < 50; i++)
+			{
+				auto actor = Bear::Factory::Instance().Create<Bear::Actor>("Coin");
+				actor->m_transform.position = { Bear::randomf(100, 2000), 100.0f };
+				actor->Initialize();
+
+				m_scene->Add(std::move(actor));
+			}
+			auto actor = Bear::Factory::Instance().Create<Bear::Actor>("Ghost");
+			actor->m_transform.position = { Bear::randomf(0, 2000), 100.0f };
+			actor->Initialize();
+
+			m_scene->Add(std::move(actor));
+
+			m_stateTimer = 15.0f;
+		}
 		break;
 
 	case FinalGame::gameState::playerDead:
 		m_stateTimer -= Bear::g_time.deltaTime;
 		if (m_stateTimer <= 0)
 		{
-			m_gameState = (m_lives > 0) ? gameState::startLevel : m_gameState = gameState::gameOver;
+			m_gameState = gameState::gameOver;
 		}
 		break;
 
 	case FinalGame::gameState::gameOver:
+		m_scene->GetActorFromName("Title")->SetActive(true);
+		m_scene->GetActorsFromTag("Enemy").clear();
+		if (Bear::g_inputSystem.GetKeyState(Bear::key_space) == Bear::InputSystem::KeyState::Pressed)
+		{
+			m_gameState = gameState::startLevel;
+		}
 		break;
 
 	default:
@@ -110,9 +140,8 @@ void FinalGame::OnAddPoints(const Bear::Event& event)
 
 void FinalGame::OnPlayerDead(const Bear::Event& event)
 {
-	m_gameState = gameState::playerDead;
-	m_lives--;
 	m_stateTimer = 3.0f;
+	m_gameState = gameState::playerDead;
 }
 
 void FinalGame::OnNotify(const Bear::Event& event)
@@ -120,12 +149,18 @@ void FinalGame::OnNotify(const Bear::Event& event)
 	if (event.name == "EVENT ADD POINTS")
 	{
 		AddPoints(std::get<int>(event.data));
+		std::cout << m_score << std::endl;
+
+		auto score = m_scene->GetActorFromName("Score");
+		if (score)
+		{
+			score->GetComponent<Bear::TextComponent>()->SetText(std::to_string(m_score));
+		}
 	}
 
 	if (event.name == "EVENT_PLAYER_DEAD")
 	{
-		m_gameState = gameState::playerDead;
-		m_lives--;
 		m_stateTimer = 3.0f;
+		m_gameState = gameState::playerDead;
 	}
 }

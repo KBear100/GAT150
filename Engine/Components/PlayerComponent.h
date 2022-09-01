@@ -22,7 +22,8 @@ namespace Bear
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 	public:
-		float jump = 3000;
+		float jump = 0;
 		int m_groundCount = 0;
+		int m_score = 0;
 	};
 }

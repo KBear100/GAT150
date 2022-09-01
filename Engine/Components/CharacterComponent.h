@@ -17,8 +17,8 @@ namespace Bear
 		virtual bool Read(const rapidjson::Value& value) override;
 
 	public:
-		float health = 100;
-		float damage = 10;
+		float health = 10;
+		float damage = 1;
 		float speed = 0;
 	};
 }

@@ -4,7 +4,7 @@
             "type":"Actor",
             "name":"Coin",
             "tag":"Pickup",
-            "lifespan":4,
+            "lifespan":10,
             "prefab":true,
             "transform":{
                 "position":[
@@ -64,9 +64,9 @@
             "components":[
                 {
                     "type":"EnemyComponent",
-                    "speed":3,
-                    "health":30,
-                    "damage":10
+                    "speed":1,
+                    "health":3,
+                    "damage":1
                 },
                 {
                     "type":"RBPhysicsComponent",
@@ -107,8 +107,8 @@
             "prefab":true,
             "transform":{
                 "position":[
-                    400,
-                    300
+                    200,
+                    100
                 ],
                 "scale":[
                     1.5,
@@ -119,20 +119,19 @@
             "components":[
                 {
                     "type":"PlayerComponent",
-                    "speed":20
+                    "speed":40,
+                    "jump":1000,
+                    "damage":1,
+                    "health":10
                 },
                 {
                     "type":"RBPhysicsComponent",
                     "damping":0.7,
-                    "data.gravity_scale":1,
+                    "data.gravity_scale":0.5,
                     "data.constrain_angle":true
                 },
                 {
-                    "type":"CollisionComponent",
-                    "data.size":[
-                        48,
-                        48
-                    ]
+                    "type":"CollisionComponent"
                 },
                 {
                     "type":"SpriteAnimComponent",
@@ -163,15 +162,9 @@
                             "sequence.num_rows":1,
                             "sequence.start_frame":1,
                             "sequence.end_frame":6,
-                            "texture_name":"Sprites/hell-hound-idle.png"
+                            "texture_name":"Sprites/hell-hound-jump.png"
                         }
                     ]
-                },
-                {
-                    "type":"AudioComponent",
-                    "sound_name":"Sounds/Laser.wav",
-                    "play_on_start":true,
-                    "pitch":2
                 }
             ]
         }

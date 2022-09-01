@@ -9,7 +9,7 @@ namespace Bear
 	public:
 		CLASS_DECLARATION(CameraComponent)
 
-			virtual void Initialize() override;
+		virtual void Initialize() override;
 		virtual void Update() override;
 
 		const Matrix3x3& GetView() { return m_view; }

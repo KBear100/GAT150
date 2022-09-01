@@ -30,6 +30,8 @@ void EnemyComponent::OnCollisionEnter(Bear::Actor* other)
         event.receiver = other;
 
         Bear::g_eventManager.Notify(event);
+
+        Bear::g_audioSystem.PlayAudio("Damage");
     }
 }
 
